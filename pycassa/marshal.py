@@ -29,6 +29,7 @@ else:
 _bool_packer   = make_packer('>B')
 _float_packer  = make_packer('>f')
 _double_packer = make_packer('>d')
+_decimal_packer = make_packer('>d')
 _long_packer = make_packer('>q')
 _int_packer = make_packer('>i')
 _short_packer = make_packer('>H')
@@ -36,7 +37,8 @@ _short_packer = make_packer('>H')
 _BASIC_TYPES = ['BytesType', 'LongType', 'IntegerType', 'UTF8Type',
                 'AsciiType', 'LexicalUUIDType', 'TimeUUIDType',
                 'CounterColumnType', 'FloatType', 'DoubleType',
-                'DateType', 'BooleanType', 'UUIDType', 'Int32Type']
+                'DateType', 'BooleanType', 'UUIDType', 'Int32Type',
+                'DecimalType']
 
 def extract_type_name(typestr):
     if typestr is None:
@@ -175,6 +177,12 @@ def packer_for(typestr):
         def pack_double(v, _=None):
             return _double_packer.pack(v)
         return pack_double
+
+    elif data_type == 'DecimalType':
+        def pack_decimal(v, _=None):
+            #print(typestr + ": " + data_type + ": " + str(v))
+            return _decimal_packer.pack(v)
+        return pack_decimal
 
     elif data_type == 'FloatType':
         def pack_float(v, _=None):
