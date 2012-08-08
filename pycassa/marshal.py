@@ -180,7 +180,6 @@ def packer_for(typestr):
 
     elif data_type == 'DecimalType':
         def pack_decimal(v, _=None):
-            #print(typestr + ": " + data_type + ": " + str(v))
             return _decimal_packer.pack(v)
         return pack_decimal
 
